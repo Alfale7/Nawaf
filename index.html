@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بطاقة تهنئة القيادة الرشيدة</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+            margin: 0;
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+            color: #333;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #2E7D32;
+        }
+        form div {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #2E7D32;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 2px solid #2E7D32;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #333;
+            text-align: center;
+        }
+        input[type="text"]:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #388E3C;
+        }
+        .card {
+            position: relative;
+            margin-top: 20px;
+            display: none;
+        }
+        .card img {
+            width: 100%;
+            border-radius: 15px;
+            border: 2px solid #2E7D32;
+        }
+        .dev {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 12px;
+            color: white;
+            font-weight: bold;
+        }
+        .overlay {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        .name, .school {
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        #downloadButton {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>بطاقة تهنئة القيادة الرشيدة باستضافة كأس العالم 2034</h2>
+        <form id="cardForm">
+            <div>
+                <label for="name">الاسم:</label>
+                <input type="text" id="name" placeholder="اكتب اسمك">
+            </div>
+            <div>
+                <label for="school">المدرسة:</label>
+                <input type="text" id="school" placeholder="اكتب اسم المدرسة">
+            </div>
+            <button type="button" onclick="generateCard()">عرض البطاقة</button>
+        </form>
+        <div class="card" id="card">
+            <img src="image.jpeg" alt="بطاقة تهنئة">
+            <div class="dev">المصمم: نواف الفالح</div>
+            <div class="overlay">
+                <div class="name" id="cardName"></div>
+                <div class="school" id="cardSchool"></div>
+            </div>
+        </div>
+        <button id="downloadButton" style="display: none;" onclick="downloadCard()">تحميل البطاقة</button>
+    </div>
+
+    <script>
+        function generateCard() {
+            const name = document.getElementById('name').value;
+            const school = document.getElementById('school').value;
+
+            if (name && school) {
+                document.getElementById('cardName').textContent = "الاسم: " + name;
+                document.getElementById('cardSchool').textContent = "المدرسة: " + school;
+
+                document.getElementById('card').style.display = 'block';
+                document.getElementById('downloadButton').style.display = 'inline-block';
+            } else {
+                alert('يرجى إدخال الاسم واسم المدرسة');
+            }
+        }
+
+        function downloadCard() {
+            const card = document.getElementById('card');
+            html2canvas(card).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'بطاقة_التهنئة.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>
